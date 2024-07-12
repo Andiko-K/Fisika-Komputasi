@@ -10,7 +10,7 @@ def visualize(predict_func, truth, iteration):
     prediction = np.vectorize(func)(array)
     ground_truth = np.vectorize(truth_func[truth])(array)
     
-    loss = np.sqrt(np.mean((prediction-ground_truth)**2))
+    loss = np.mean((prediction-ground_truth)**2)
     color = 'blue'
     
     fig, ax = plt.subplots(figsize = (6,4))
