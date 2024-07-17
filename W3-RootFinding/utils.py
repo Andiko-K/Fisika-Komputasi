@@ -71,3 +71,50 @@ def run_tests1(func):
     
     runner = unittest.TextTestRunner()
     runner.run(suite)
+    
+class TestSecant(unittest.TestCase):
+    def __init__(self, methodName='runTest', func=None):
+        super(TestSecant, self).__init__(methodName)
+        self.func = func
+    
+    def test_case_1(self):
+        f = lambda x: 2*np.exp(x)**(.5*x)-3
+        x1 = 2.1; x2 = 2
+        result = self.func(f, x1, x2)
+        expected_result = 0.90
+        
+        self.assertAlmostEqual(result, expected_result, delta = 1e-3)
+    
+    def test_case_2(self):
+        f = lambda x: 3*x**3+5*x**2+2*x-7
+        x1 = 3; x2 = 2.9
+        result = self.func(f,x1,x2)
+        expected_result = .84
+        
+        self.assertAlmostEqual(result, expected_result, delta = 1e-3)
+    
+    def test_case_3(self):
+        f = lambda x: 2*np.sin(x)+np.cos(4*x)+.2*x
+        x1 = 3.2; x2 = 3
+        result = self.func(f,x1,x2)
+        expected_result = 3.524
+    
+        self.assertAlmostEqual(result, expected_result, delta = 1e-3)
+    
+    def test_case_4(self):
+        f = lambda x: (x-70)*(x**2-8*x)+10
+        x1 = 60; x2 = 61
+        result = self.func(f,x1,x2)
+        expected_result = 69.99
+    
+        self.assertAlmostEqual(result, expected_result, delta = 1e-2)
+
+def run_tests2(func):
+    suite = unittest.TestSuite()
+    suite.addTest(TestSecant('test_case_1', func=func))
+    suite.addTest(TestSecant('test_case_2', func=func))
+    suite.addTest(TestSecant('test_case_3', func=func))
+    suite.addTest(TestSecant('test_case_4', func=func))
+    
+    runner = unittest.TextTestRunner()
+    runner.run(suite)
