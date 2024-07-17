@@ -113,7 +113,7 @@ def run_tests2(func):
     suite.addTest(TestGaussianElimination('test_case_1', func=func))
     suite.addTest(TestGaussianElimination('test_case_2', func=func))
     suite.addTest(TestGaussianElimination('test_case_3', func=func))
-    suite.addTest(TestGaussianElimination('test_case_3', func=func))
+    suite.addTest(TestGaussianElimination('test_case_4', func=func))
     suite.addTest(TestGaussianElimination('test_case_5', func=func))
     
     runner = unittest.TextTestRunner()
