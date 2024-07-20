@@ -44,3 +44,34 @@ def run_tests1(func):
     
     runner = unittest.TextTestRunner()
     runner.run(suite)
+
+class TestPiecewiseInt(unittest.TestCase):
+    def __init__(self, methodName='runTest', func=None):
+        super(TestPiecewiseInt, self).__init__(methodName)
+        self.piecewise_int = func
+    
+    @timeout_decorator.timeout(1)
+    def test_case_1(self):
+        points_x = np.linspace(-1,1,20)
+        points = np.c_[points_x, points_x**2]
+        
+        x = np.linspace(-1,1,100)
+        expected_result = x**2
+        result = self.piecewise_int(x, points)
+        
+        np.testing.assert_allclose(result, expected_result, rtol=1e-2, atol=1e-2)
+
+def run_tests2(func):
+    suite = unittest.TestSuite()
+    suite.addTest(TestPiecewiseInt('test_case_1', func=func))
+    
+    runner = unittest.TextTestRunner()
+    runner.run(suite)
+
+def generate_points(func, num, left_bound = -1, right_bound = 1):
+    x = np.linspace(left_bound, right_bound, num)
+    y = func(x)
+    points = np.c_[x,y]
+    return points
+
+piecewise_data = generate_points(lambda x: x**2, 10)
