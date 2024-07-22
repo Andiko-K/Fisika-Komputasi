@@ -119,3 +119,72 @@ def run_tests3(func):
     
     runner = unittest.TextTestRunner()
     runner.run(suite)
+
+def tips(title, content):
+    
+    return HTML(f'''
+    <details>
+        <summary>{title}</summary>
+        <p>{content}</p>
+    </details>
+    ''')
+
+title = 'Klik Untuk Melihat Tips!'
+content1 = '''
+array points berdimensi 2x2, [[x1,y1], [x2,y2]]. Ambil masing-masing nilai x1,y1,x2, dan y2 dalam array dan lakukan operasi dengan variabel x
+sehingga didapatkan nilai y interpolasi
+'''
+content2 = ''' <pre><code>
+def linear_int(x, points):
+    
+    x0, y0 = points[0]
+    x1, y1 = points[1]
+    
+    y = y0 + (y1 - y0) * (x - x0) / (x1 - x0)
+    return y
+</code></pre>
+'''
+
+content3 = '''
+Iterasikan tiap nilai x pada x_array. Interpolasi dilakukan menggunakan fungsi linear_int yang telah kita buat sebelumnya terhadap x dan points[index-1:index+1]. (Jika index = 1, interpolasi dilakukan terhadap x dengan baris point[0:2], slicing ini akan mengambil array pada points[0] dan points[1]).
+Maka dari itu, pastikan bahwa nilai x berada di rentang points[index-1:index] atau x < points[index]
+'''
+
+content4 = '''
+#latihan 2
+def piecewise_lin(x_array, points):
+    y_array = []
+    index = 1
+    for x in x_array:
+        if x > points[index, 0]:
+            index += 1
+            
+        y = linear_int(x, points[index-1:index+1])
+        y_array.append(y)
+
+    return y_array
+'''
+
+content5 = '''
+Lakukan iterasi untuk tiap nilai i dan j. Pada iterasi j, gunakan syarat kondisi sehingga i != j dan gunakan perkalian beruntun (*=) dengan rumus L.
+Sementara itu, dengan nilai L yang didapatkan lakukan penjumlahan beruntun (+=) dengan nilai y pada points[i]
+'''
+
+content6 = '''
+def lagrange_int(x,points):
+    result = 0
+    n = len(points)-1
+    for i in range(0,n+1):
+        lagrange_val = 1
+        for j in range(0,n+1):
+            if not i == j:
+                lagrange_val*= ((x-points[j][0])/(points[i][0]-points[j][0]))
+        result += lagrange_val*points[i][-1]
+    return result
+'''
+tips1 = tips(title, content1)
+tips2 = tips(title, content2)
+tips3 = tips(title, content3)
+tips4 = tips(title, content4)
+tips5 = tips(title, content5)
+tips6 = tips(title, content6)
